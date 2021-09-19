@@ -3,13 +3,10 @@ body{
    padding: 0;
    background: #00a5be;
    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+   background-image: url('../img/asset-red.svg');
+   background-repeat: no-repeat;
+   background-position: left 10% top 0;
 }
-
-/* h1,h2,h3,h4,h5,h6{
-   margin: 0;
-   padding: 0;
-} */
-
 html{
    font-size: 62.5%;
 }
@@ -17,23 +14,70 @@ html{
 img{
    max-width: 100%;
 }
-
-.logo-container{
-   grid-area: logo;
+.preloader{
+   position: fixed;
+   left: 0;
+   top: 0;
+   height: 100%;
    width: 100%;
+   z-index: 1500;
+   background: #00a5be;
+   opacity: 1;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   visibility: hidden;
+}
+.preloader.active{
+   visibility: visible;
+   transition: all 0.6s ease;
 }
 
-.logo{
-   margin: 0 auto 2rem;
-   display: block;
-   width: 40rem;
-   /* border: 1px solid royalblue; */
+.preloader-text{
+   font-size: 2rem;
+   color: black;
+   opacity: 0.7;
+   margin-bottom: 2rem;
+   text-transform: capitalize;
+}
+
+.preloader .box{
+   width: 6.5rem;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+}
+
+.preloader .box div{
+   height: 1.5rem;
+   width: 1.5rem;
+   background: red;
+   border-radius: 50%;
+   animation: loaderAni 1s ease infinite;
+}
+
+.preloader .box div:nth-child(2){
+   animation-delay: 0.1s;
+}
+
+.preloader .box div:nth-child(3){
+   animation-delay: 0.2s;
+}
+
+@keyframes loaderAni{
+   0%, 100%{
+      transform: translateY(0);
+   }
+   50%{
+      transform: translateY(-30px);
+   }
 }
 
 .grid{
    display: grid;
    overflow: hidden;
-   /* height: 100vh; */
+   position: relative;
    padding: 1rem;
    margin: 0;
    grid-template-columns: 5rem 50rem 1fr 15rem;
@@ -45,10 +89,19 @@ img{
       "about character-description avatar avatar"
       "asset-bottom learn-more arrow arrow";
 }
+.logo-container{
+   grid-area: logo;
+   width: 100%;
+}
+
+.logo{
+   margin: 0 auto 2rem;
+   display: block;
+   width: 40rem;
+}
 .learn-more{
    grid-area: learn-more;
    display: flex;
-   /* justify-content: center; */
    align-items: center;
    padding-bottom: 3rem;
    width: auto;
@@ -57,7 +110,6 @@ img{
    background-image: url('../img/learn-more.svg');
    background-repeat: no-repeat;
    background-position: left 17rem bottom 9rem;
-   /* border: 1px solid red; */
 }
 .arrow{
    grid-area: arrow;
@@ -66,7 +118,6 @@ img{
    justify-content: center;
    align-items: center;
 }
-
 .arrow div{
    background-image: url('../img/arrow.svg');
    background-repeat: no-repeat;
@@ -74,19 +125,18 @@ img{
    width: 5rem;
    height: 5rem;
    cursor: pointer;
-   /* border: 1px solid blue; */
    position: relative;
 }
 .arrow div::before{
    content: attr(data-target);
    position: absolute;
    bottom: -3rem;
-   left: -1.5rem;
+   left: -1.8rem;
    display: block;
+   font-weight: bold;
    font-size: 2rem;
 }
 .asset.top{
-   /* border: 1px solid red; */
    grid-area: asset-top;
    writing-mode: vertical-rl;
    display: flex;
@@ -94,7 +144,6 @@ img{
    justify-content: center;
 }
 .asset.bottom{
-   /* border: 1px solid red; */
    grid-area: asset-bottom;
    writing-mode: vertical-rl;
    display: flex;
@@ -106,7 +155,6 @@ img{
    justify-content: space-around;
    align-items: center;
    flex-direction: column;
-   /* border: 1px solid yellow; */
 }
 .social a{
    width: 3.8rem;
@@ -121,11 +169,9 @@ img{
 }
 .navigation.name{
    grid-area: name;
-   /* border: 1px solid purple;*/
 } 
 .navigation.about{
    grid-area: about;
-   /* border: 1px solid green; */
 }
 .navigation a{
    text-decoration: none;
@@ -137,21 +183,16 @@ img{
    grid-area: character-name;
    display: flex;
    align-items: center;
-   /* border: 2px solid blue; */
 }
 .character-description-container{
    grid-area: character-description;
-   /* border: 2px solid blue; */
 }
-
 .character-image-container{
    grid-area: avatar;
    display: flex;
    justify-content: center;
    align-items: center;
-   /* border: 2px solid blue; */
 }
-
 .navigation .text{
    display: inline-flex;
    margin-inline: 3.5rem;
@@ -168,7 +209,6 @@ img{
 .line{
    width: .2rem;
    height: 8rem;
-   /* transform: rotate(90deg); */
    padding: 1rem auto 1rem;
    background: black;
    display: inline-flex;
@@ -185,7 +225,6 @@ img{
    font-size: 3rem;
 }
 .character-label{
-   /* display: inline-flex; */
    background: #685128;
    padding: 1rem;
    color: white;
@@ -194,7 +233,23 @@ img{
    font-size: 2rem;
    font-weight: 400;
 }
-
+.character-name-placeholder{
+   overflow: hidden;
+   text-transform: uppercase;
+   color: black;
+   opacity: 0.1;
+   font-size: 30rem;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   display: flex; 
+   justify-content: center;
+   align-items: center;
+   white-space: nowrap;
+   z-index: -1;
+}
 @media screen and (max-width: 991px){
    .grid{
       grid-template-columns: 5rem 1fr 15rem;
@@ -216,7 +271,6 @@ img{
       justify-content: center;
       align-items: center;
       flex-direction: row;
-      /* border: 1px solid yellow; */
    }
    .social a{
       width: 3.8rem;
@@ -231,6 +285,5 @@ img{
       font-size: 2.5rem;
       text-transform: capitalize;
       background-image: none;
-      /* border: 1px solid red; */
    }
 }

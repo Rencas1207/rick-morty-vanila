@@ -3,18 +3,20 @@ import Character from './character.js';
 let currentCharacter = 1;
 const api = new API();
 
-// const $characterContainer = document.querySelector('#character-container');
 const $loadNext = document.querySelector('#load-next');
 
 $loadNext.addEventListener('click', async () => {
+  document.querySelector('.preloader').classList.add('active');
+  setTimeout(() => {
+    document.querySelector('.preloader').classList.remove('active');
+  }, 1000);
   const characterData = await api.getCharacter(++currentCharacter);
-  // console.log(characterData);
   new Character(characterData);
+  window.scrollTo(0, 0);
 });
 
 async function initialApp(initCharacterId) {
   const characterData = await api.getCharacter(initCharacterId);
-  // console.log(characterData);
   new Character(characterData);
 }
 
